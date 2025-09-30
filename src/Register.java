@@ -6,12 +6,6 @@ public class Register {
     /*String caso1Perguntas = ("Digite as informações do usuario que gostaria de cadastrar\n" +
        //botar a variavel aqui do main, pra ja ir faznedo a alteração e salvando o valor do cpf
             "INFORMAÇÕES NECESSÁRIAS\n");*/
-
-
-
-
-
-
 }
 
 
