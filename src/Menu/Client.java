@@ -4,28 +4,43 @@ import java.util.Date;
 
 public class Client {
 
-    private String nome = "";
-    private Date dataNascimento1 = new Date();
-    private String cpfCadastro1 = "";
-    private String email1 =  "";
-    private Date dataCadastro1 = new Date();
-    private String endereçoCadastro1 = "";
+    private String name = "";
+    private Date birthDate = new Date();
+    private String userCPF[];
+    private String email =  "";
+    private Date registerDate = new Date();
+    private String userAddres = "";
 
-    public Client(String nome, Date dataNascimento1, String cpfCadastro1, String email1, Date dataCadastro1, String endereçoCadastro1){
-        this.nome = nome;
-        this.dataNascimento1 = dataNascimento1;
-        this.cpfCadastro1 = cpfCadastro1;
-        this.email1 = email1;
-        this.dataCadastro1 = dataCadastro1;
-        this.endereçoCadastro1 = endereçoCadastro1;
+
+    public Client() {
     }
 
-    public String getNome() { return nome; }
-    public void setNome(String nome) { this.nome = nome; }
+    public Client(String nome, Date dataNascimento1, String cpfCadastro1, String email1, Date dataCadastro1, String enderecoCadastro1){
+        this.name = nome;
+        this.birthDate = dataNascimento1;
+        this.userCPF = new String[]{cpfCadastro1};
+        this.email = email1;
+        this.registerDate = dataCadastro1;
+        this.userAddres = enderecoCadastro1;
+    }
 
-    public Date getDataNascimento1() { return dataNascimento1; }
-    public void setDataNascimento1(Date dataNascimento1) { this.dataNascimento1 = dataNascimento1; }
+    // getters and setters
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
-    public String getCpfCadastro1() { return cpfCadastro1; }
-    public void setCpfCadastro1(String cpfCadastro1) { this.cpfCadastro1 = cpfCadastro1; }
+    public Date getBirthDate() { return birthDate; }
+    public void setBirthDate(Date birthDate) { this.birthDate = birthDate; }
+
+    public String[] getUserCPF() { return userCPF; }
+    public void setUserCPF(String userCPF) { this.userCPF = new String[]{userCPF}; }
+
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
+
+    public Date getRegisterDate() { return registerDate; }
+    public void setRegisterDate(Date registerDate) { this.registerDate = registerDate; }
+
+    public String getUserAddres() { return userAddres; }
+    public void setUserAddres(String userAddres) { this.userAddres = userAddres; }
+
 }

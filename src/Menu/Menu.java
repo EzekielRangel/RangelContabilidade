@@ -6,7 +6,6 @@ public class Menu {
 
     static Scanner sc = new Scanner(System.in);
 
-
     public void showMenu(){
         int option;
         do {
@@ -25,7 +24,7 @@ public class Menu {
                     reg.registerUser();
                     break;
                 case 2:
-                    
+                    System.out.println("Digite o CPF do usuário que gostaria de cadastrar (sem pontos)");
             }
         } while (option != 0);
     }

@@ -8,18 +8,31 @@ import java.util.Scanner;
 public class Register extends Client{
     Scanner sc = new Scanner(System.in);
 
-    public Register(String nome, Date dataNascimento1, String cpfCadastro1, String email1, Date dataCadastro1, String endereçoCadastro1) {
-        super(nome, dataNascimento1, cpfCadastro1, email1, dataCadastro1, endereçoCadastro1);
-    }
-
     public Register() {
         super();
     }
 
+    public Register(String name, Date birthDate, String userCPF, String email, Date registerDate, String userAddres) {
+        super(name, birthDate, userCPF, email, registerDate, userAddres);
+    }
+
+    public boolean validatorCPF(String cpf) {
+        if (cpf == null || cpf.length() != 11) {
+            return false;
+        }
+        for (char c : cpf.toCharArray()) {
+            if (!Character.isDigit(c)) {
+                return false; // encontrou caractere que não é número
+            }
+        }
+        return true;
+    }
+
+
     public void registerUser(){
 
         System.out.println("Digite o nome do cliente que gostaria de cadastrar: ");
-        nome = sc.nextLine();
+        setName(sc.nextLine());
 
         System.out.println("\nDigite a data de nascimento dd/mm/yyyy: ");
         String inputDateUser = sc.next();
@@ -30,17 +43,29 @@ public class Register extends Client{
 
         try{
             Date parsedDate = sdf.parse(inputDateUser);
+            setBirthDate(parsedDate);
         }catch (ParseException e){
             System.out.println("Data inválida");
         }
 
         System.out.println("\nDigite o CPF para o cadastro: ");
-        cpfCadastro1 = sc.nextLine();
+        String inputCPF = sc.nextLine();
+
+        if(validatorCPF(inputCPF)){
+            setUserCPF(inputCPF);
+            System.out.println("CPF cadastrado com sucesso!");
+        } else {
+            System.out.println("CPF inválido! Digite 11 dígitos numéricos.");
+        }
+
 
         System.out.println("\nDigite o email para adicionar ao cadastro: ");
-        email1 = sc.nextLine();
+        setEmail(sc.nextLine());
 
-        System.out.println("\nDigite o email para ser cadastrado");
+        //verificar se par o registerDate, preciso fazer a msm logica da data novamente, ou é so passar diferentes valores
+
+        System.out.println("\nDigite o endereço do cliente para adicionar ao cadastro: ");
+        setUserAddres(sc.nextLine());
 
     }
 }
