@@ -11,7 +11,6 @@ public class ClientService {
 
     Scanner sc = new Scanner(System.in);
     private ClientRepository clientRepository;
-    Address address = new Address();
 
     public ClientService(ClientRepository clientRepository){
         this.clientRepository = clientRepository;
@@ -23,26 +22,37 @@ public class ClientService {
         }
         for (char c : cpf.toCharArray()) {
             if (!Character.isDigit(c)) {
-                return false; // find a char that is not a number
+                return false;
             }
         }
         return true;
     }
 
     public void registerUser() {
+
         Client client = new Client();
 
         while(true){
             System.out.println("\nDigite o CPF para o cadastro: ");
             String inputCPF = sc.nextLine();
 
-            if (isCpfValid(inputCPF)) {
+
+            if(clientRepository.getActiveClientSet().contains(inputCPF)){
+                System.out.println("CPF já cadastrado, por favor, digite um novo CPF");
+            } else if (isCpfValid(inputCPF)) {
                 client.setUserCPF(inputCPF);
                 System.out.println("CPF cadastrado com sucesso!");
                 break;
             } else {
-                System.out.println("CPF inválido! Digite 11 dígitos numéricos.");
+                System.out.println("CPF inválido! Digite 11 dígitos numéricos");
             }
+            //if (isCpfValid(inputCPF)) {
+            //    client.setUserCPF(inputCPF);
+            //    System.out.println("CPF cadastrado com sucesso!");
+            //    break;
+            //} else {
+            //    System.out.println("CPF inválido! Digite 11 dígitos numéricos.");
+            //}
         }
 
         while(true){
@@ -82,35 +92,57 @@ public class ClientService {
             break;
         }
 
-        registerUserAddres();
+        Address address = getUserAddress();
+        client.setUserAddress(address);
 
         clientRepository.addClient(client);
         System.out.println("Cliente adicionado ao repositório com sucesso!");
     }
 
-    public Address registerUserAddres() {
+    public Address getUserAddress() {
+
+        Address address = new Address();
 
         System.out.println("Digite o nome da rua: ");
         address.setStreetName(sc.nextLine());
 
         while (true){
-            System.out.println("Digite o numero da casa: ");
+            System.out.println("Digite o número da casa: ");
             String houseNumInput = sc.nextLine();
 
-            if(houseNumInput.matches(".*[A-Za-z].*")) {
-                System.out.println("Numero da casa inválido! Digite um numero válido");
-            } else {
-                Integer houseNum = Integer.parseInt(houseNumInput);
-                address.setNumber(houseNum);
+            if (houseNumInput.isBlank()) {
+                System.out.println("Digite um número");
+                continue;
+            } if (houseNumInput.matches("\\d+")) {
+                address.setNumber(houseNumInput);
                 break;
             }
+            System.out.println("Digite apenas números");
         }
 
-        System.out.println("Digite a cidade: ");
-        address.setCity(sc.nextLine());
+        while (true) {
+            System.out.println("Digite a cidade: ");
+            String city = sc.nextLine();
 
-        System.out.println("Digite o bairro: ");
-        address.setDistrict(sc.nextLine());
+            if (!city.isBlank()) {
+                address.setCity(city);
+                break;
+            }
+
+            System.out.println("A cidade não pode ser vazia");
+        }
+
+        while(true){
+            System.out.println("Digite o bairro: ");
+            String district = sc.nextLine();
+
+            if(!district.isBlank()){
+                address.setDistrict(district);
+                break;
+            }
+
+            System.out.println("O bairro não pode estar vazio");
+        }
 
         while(true){
             System.out.println("Digite o estado: ");
